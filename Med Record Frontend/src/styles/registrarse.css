@@ -1,0 +1,713 @@
+
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos específicos de registrarse */
+
+        .left-section {
+            background: url('../../public/images/registrarse.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fafafa;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 80px;
+            height: 80px;
+            background: url('../../public/icons/logotipo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .left-section h2 {
+            font-size: 2.35rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .right-section {
+            padding: 60px 80px;
+            justify-content: start;
+            overflow-y: auto;
+        }
+
+        .right-section h1 {
+            font-size: 2.7rem;
+            color: #122E45;
+            margin-top: 60px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .login-link {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            color: #3498db;
+        }
+
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .form-row-1 {
+            display: flex;
+            gap: 20px;
+            margin-top: 50px;
+            margin-bottom: 15px;
+        }
+
+        .form-row-2 {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group-full-1 {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .form-group-full-2 {
+            width: 100%;
+            margin-bottom: 45px;
+        }
+
+        .form-group label,
+        .form-group-full-1 label,
+        .form-group-full-2 label {
+            display: block;
+            margin-bottom: 8px;
+            color: #122E45;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group-full-1 input,
+        .form-group-full-2 input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group-full-1 input:focus,
+        .form-group-full-2 input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group input::placeholder,
+        .form-group-full-1 input::placeholder,
+        .form-group-full-2 input::placeholder {
+            color: #bbb;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 15px;
+            background: #122E45;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background: #3498db;
+        }
+
+        .register-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* ESTILOS CSS PARA FUNCIONALIDAD DE REGISTRO */
+        /* Agregar al final de Style_Registrarse.css */
+
+        /* Estilos para el botón de registro */
+        .register-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .register-btn.enabled {
+            background-color: #27ae60;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .register-btn:hover:not(:disabled) {
+            background-color: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        /* Spinner de carga */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Estilos para alertas */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            min-width: 300px;
+            max-width: 500px;
+            animation: slideInRight 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            border-left-color: #27ae60;
+            background-color: #d5f4e6;
+        }
+
+        .alert-error {
+            border-left-color: #e74c3c;
+            background-color: #fceaea;
+        }
+
+        .alert-icon {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .alert-success .alert-icon {
+            color: #27ae60;
+        }
+
+        .alert-error .alert-icon {
+            color: #e74c3c;
+        }
+
+        .alert-message {
+            flex: 1;
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #7f8c8d;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .alert-close:hover {
+            background-color: rgba(127, 140, 141, 0.2);
+            color: #2c3e50;
+        }
+
+        /* Animación de entrada para alertas */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Estilos para campos con validación */
+        .form-group input:focus:valid,
+        .form-group-full-1 input:focus:valid,
+        .form-group-full-2 input:focus:valid {
+            border-color: #27ae60;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+        }
+
+        .form-group input:focus:invalid,
+        .form-group-full-1 input:focus:invalid,
+        .form-group-full-2 input:focus:invalid {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        /* Estados de validación visual */
+        .form-group input.valid,
+        .form-group-full-1 input.valid,
+        .form-group-full-2 input.valid {
+            border-color: #27ae60;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2327ae60' d='m2.3 6.73.71-.71 1.41 1.42L8 3.86l.71.71-3.56 3.56L2.3 6.73z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 36px;
+        }
+
+        .form-group input.invalid,
+        .form-group-full-1 input.invalid,
+        .form-group-full-2 input.invalid {
+            border-color: #e74c3c;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3e%3cpath fill='%23e74c3c' d='M11.83 3.17a.5.5 0 0 0-.71 0L6 8.29l-5.12-5.12a.5.5 0 0 0-.71.71l5.47 5.47a.5.5 0 0 0 .71 0l5.48-5.47a.5.5 0 0 0 0-.71z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 36px;
+        }
+
+        /* Efectos para campos del formulario */
+        .form-group input,
+        .form-group select,
+        .form-group-full-1 input,
+        .form-group-full-2 input {
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group-full-1 input:focus,
+        .form-group-full-2 input:focus {
+            transform: translateY(-1px);
+        }
+
+        /* Indicador visual de campos requeridos */
+        .form-group label::after,
+        .form-group-full-1 label::after,
+        .form-group-full-2 label::after {
+            content: ' *';
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Estilos para indicador de fortaleza de contraseña */
+        .password-strength {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .strength-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #ecf0f1;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            width: 0%;
+        }
+
+        .strength-text {
+            color: #7f8c8d;
+            font-size: 11px;
+            text-align: right;
+            transition: color 0.3s ease;
+        }
+
+        /* Mejoras responsive para alertas */
+        @media (max-width: 768px) {
+            .alert {
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                min-width: auto;
+                max-width: none;
+                font-size: 13px;
+            }
+            
+            .alert-message {
+                font-size: 13px;
+            }
+        }
+
+        /* Efecto de carga en el formulario */
+        .form-container.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Animación para validación de campos */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .form-group input.shake,
+        .form-group-full-1 input.shake,
+        .form-group-full-2 input.shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Mejoras para el select de género */
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        /* Tooltip para ayuda de contraseña */
+        .password-help {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+            cursor: help;
+        }
+
+        .password-help::after {
+            content: '?';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            text-align: center;
+            line-height: 16px;
+            font-weight: bold;
+        }
+
+        .password-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .password-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #2c3e50;
+        }
+
+        .password-help:hover .password-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Estilos adicionales para mejorar UX */
+        .form-row-1,
+        .form-row-2 {
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="date"] {
+            position: relative;
+        }
+
+        /* Personalización del input de fecha */
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: invert(0.5);
+            transition: filter 0.2s ease;
+        }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            filter: invert(0.2);
+        }
+
+        /* Mejoras de accesibilidad */
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group-full-1 input:focus,
+        .form-group-full-2 input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Estados hover para campos */
+        .form-group input:hover:not(:focus),
+        .form-group select:hover:not(:focus),
+        .form-group-full-1 input:hover:not(:focus),
+        .form-group-full-2 input:hover:not(:focus) {
+            border-color: #95a5a6;
+        }
+
+        /* CORRECCIONES CSS PARA PROBLEMAS DEL FORMULARIO */
+        /* Agregar al final de Style_Registrarse.css */
+
+        /* 1. CORREGIR el campo de contraseña - remover flecha */
+        .form-group-full-2 input[type="password"] {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: textfield !important;
+            background-image: none !important;
+            background-position: unset !important;
+            background-repeat: no-repeat !important;
+            background-size: unset !important;
+            padding-right: 12px !important; /* Resetear padding derecho */
+        }
+
+        /* Asegurar que no hay pseudo-elementos en el campo de contraseña */
+        .form-group-full-2 input[type="password"]::-webkit-outer-spin-button,
+        .form-group-full-2 input[type="password"]::-webkit-inner-spin-button {
+            display: none !important;
+            -webkit-appearance: none !important;
+        }
+
+        .form-group-full-2 input[type="password"]::-webkit-calendar-picker-indicator {
+            display: none !important;
+            -webkit-appearance: none !important;
+        }
+
+        /* 2. CORREGIR el select de género - una sola flecha */
+        .form-group select {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+            background-position: right 12px center !important;
+            background-repeat: no-repeat !important;
+            background-size: 16px !important;
+            padding-right: 40px !important;
+        }
+
+        /* Remover cualquier pseudo-elemento del select */
+        .form-group select::-ms-expand {
+            display: none !important;
+        }
+
+        /* 3. PREVENIR auto-mayúsculas en campos de texto */
+        .form-group input[type="text"],
+        .form-group-full-1 input[type="email"],
+        .form-group-full-2 input[type="password"] {
+            text-transform: none !important;
+            autocapitalize: none !important;
+        }
+
+        /* Específicamente para nombre y apellido */
+        #name, #lastname {
+            text-transform: none !important;
+            autocapitalize: words !important; /* Esto permitirá que el navegador sugiera, pero no forzará */
+        }
+
+        /* 4. MEJORAR estilos de validación */
+        .form-group input.valid,
+        .form-group-full-1 input.valid,
+        .form-group-full-2 input.valid {
+            border-color: #27ae60 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2327ae60' d='m2.3 6.73.71-.71 1.41 1.42L8 3.86l.71.71-3.56 3.56L2.3 6.73z'/%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 12px center !important;
+            background-size: 16px !important;
+        }
+
+        .form-group input.invalid,
+        .form-group-full-1 input.invalid,
+        .form-group-full-2 input.invalid {
+            border-color: #e74c3c !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3e%3cpath fill='%23e74c3c' d='m6 0c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm2.83 8.83l-.71.71-2.12-2.12-2.12 2.12-.71-.71 2.12-2.12-2.12-2.12.71-.71 2.12 2.12 2.12-2.12.71.71-2.12 2.12 2.12 2.12z'/%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 12px center !important;
+            background-size: 16px !important;
+        }
+
+        /* Ajustar padding para campos con iconos de validación */
+        .form-group input.valid,
+        .form-group input.invalid,
+        .form-group-full-1 input.valid,
+        .form-group-full-1 input.invalid,
+        .form-group-full-2 input.valid,
+        .form-group-full-2 input.invalid {
+            padding-right: 36px !important;
+        }
+
+        /* 5. CORREGIR el select cuando tiene validación */
+        .form-group select.valid,
+        .form-group select.invalid {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+            background-position: right 12px center !important;
+            padding-right: 40px !important;
+        }
+
+        /* 6. ESTILOS específicos para el botón deshabilitado */
+        .register-btn:disabled {
+            background-color: #bdc3c7 !important;
+            cursor: not-allowed !important;
+            opacity: 0.6 !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .register-btn.enabled {
+            background-color: #27ae60 !important;
+            cursor: pointer !important;
+            opacity: 1 !important;
+        }
+
+        /* 7. RESETEAR estilos que puedan estar causando problemas */
+        .form-group input,
+        .form-group select,
+        .form-group-full-1 input,
+        .form-group-full-2 input {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* 8. ESTADOS de foco limpios */
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group-full-1 input:focus,
+        .form-group-full-2 input:focus {
+            border-color: #3498db !important;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1) !important;
+            background-color: white !important;
+        }
+
+        /* 9. CORREGIR campo de fecha */
+        .form-group input[type="date"] {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            background-color: white;
+            position: relative;
+        }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3e%3cpath fill-rule='evenodd' d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z' clip-rule='evenodd'/%3e%3c/svg%3e") !important;
+            background-size: 16px !important;
+            background-repeat: no-repeat !important;
+            width: 16px !important;
+            height: 16px !important;
+            cursor: pointer !important;
+            opacity: 0.7 !important;
+        }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1 !important;
+        }
+
+        /* 10. LIMPIEZA general - remover cualquier estilo conflictivo */
+        * {
+            text-transform: none !important;
+        }
+
+        #name, #lastname {
+            text-transform: none !important;
+        }
+
+        /* 11. RESPONSIVE fixes */
+        @media (max-width: 768px) {
+            .form-group input,
+            .form-group select,
+            .form-group-full-1 input,
+            .form-group-full-2 input {
+                font-size: 16px; /* Prevenir zoom en iOS */
+            }
+        }
+
+        /* 12. ELIMINAR efectos de transformación en inputs */
+        .form-group input,
+        .form-group-full-1 input,
+        .form-group-full-2 input {
+            text-transform: none !important;
+            transform: none !important;
+        }
+
+        .form-group input:focus,
+        .form-group-full-1 input:focus,
+        .form-group-full-2 input:focus {
+            transform: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .right-section {
+                padding: 20px 15px;
+            }
+            
+            .form-container {
+                max-width: 100%;
+            }
+        }

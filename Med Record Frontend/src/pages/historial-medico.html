@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Med Record</title>
+    <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../styles/historial-medico.css">
+    <link rel="stylesheet" href="../styles/modal-alerts.css">
+</head>
+  
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="../../public/icons/logo.svg" alt="MedRecord Logo" class="logo-img">
+            </div>
+            <div class="logo-text">Med Record</div>
+        </div>
+        <div class="user-info">
+            <div class="user-name">Carlos Rafael Ruiz Ruiz | 18 años</div>
+            <div>243703@ids.upchiapas.edu.mx</div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="nav-item active" data-tab="consultas">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            <div class="nav-text">Consultas médicas</div>
+        </div>
+        <div class="nav-item" data-tab="medidas">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7.07,18.28C7.5,17.38 8.12,16.5 8.91,15.77C9.71,15.04 10.69,14.5 11.71,14.22C12.5,14.05 13.33,14 14.16,14C15.07,14 16,14.08 16.88,14.3C17.76,14.5 18.58,14.84 19.3,15.3C19.74,15.58 20.14,15.91 20.47,16.3C20.8,16.69 21.04,17.12 21.16,17.58C21.27,18.04 21.27,18.53 21.15,19.01C21.03,19.5 20.8,19.96 20.47,20.37C20.14,20.78 19.74,21.13 19.3,21.42C18.58,21.88 17.76,22.22 16.88,22.42C16,22.62 15.07,22.7 14.16,22.7C13.33,22.7 12.5,22.65 11.71,22.48C10.69,22.2 9.71,21.66 8.91,20.93C8.12,20.2 7.5,19.32 7.07,18.42V18.28Z"/>
+            </svg>
+            <div class="nav-text">Medidas corporales</div>
+        </div>
+        <div class="nav-item" data-tab="graficas">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M22,21H2V3H4V19H6V17H10V19H12V16H16V19H18V17H22V21Z"/>
+            </svg>
+            <div class="nav-text">Gráficas y estadísticas</div>
+        </div>
+        <div class="nav-item" data-tab="informacion">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+            </svg>
+            <div class="nav-text">Información personal</div>
+        </div>
+        <div class="nav-item" data-tab="historial">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            <div class="nav-text">Historial médico</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div id="consultas" class="tab-content active">
+            <div class="search-section">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Buscar registro">
+                </div>
+                <button class="new-record-btn" onclick="openModal()">
+                    <span>+</span>
+                    Crear un nuevo registro
+                </button>
+            </div>
+            <div class="records-list"></div>
+        </div>
+
+        <div id="medidas" class="tab-content">
+            <div class="search-section">
+                <div class="filter-section">
+                    <svg class="filter-icon" viewBox="0 0 24 24">
+                        <path d="M3,2H21V2H21V4H20.92L14,10.92V22.91L10,18.91V10.92L3.09,4H3V2Z"/>
+                    </svg>
+                    <span>Mostrar medidas de</span>
+                    <select class="filter-select">
+                        <option value="all">Todo tipo</option>
+                        <option value="peso">Peso</option>
+                        <option value="altura">Altura</option>
+                        <option value="presion">Presión arterial</option>
+                        <option value="temperatura">Temperatura</option>
+                        <option value="glucosa">Glucosa</option>
+                    </select>
+                </div>
+                <button class="new-record-btn" onclick="openMeasurementModal()">
+                    <span>+</span>
+                    Registrar nueva medición
+                </button>
+            </div>
+
+            <div class="measurements-grid"></div>
+        </div>
+
+        <!-- REEMPLAZAR el div #graficas existente con este código -->
+
+        <div id="graficas" class="tab-content">
+            <div class="charts-container">
+                <!-- Tabs de tipos de medidas -->
+                <div class="measurement-tabs">
+                    <button class="measurement-tab active" data-type="peso">Peso</button>
+                    <button class="measurement-tab" data-type="altura">Altura</button>
+                    <button class="measurement-tab" data-type="glucosa">Glucosa</button>
+                    <button class="measurement-tab" data-type="presion">Presión arterial</button>
+                    <button class="measurement-tab" data-type="temperatura">Temperatura</button>
+                </div>
+                
+                <!-- Contenido principal -->
+                <div class="charts-main-content">
+                    <!-- Sección de gráfica -->
+                    <div class="chart-section">
+                        <div class="chart-header">
+                            <h3>Gráfica por mes</h3>
+                            <button id="graficar-btn">Graficar</button>
+                        </div>
+                        
+                        <!-- Selector de mes y año -->
+                        <div class="month-year-selector">
+                            <button class="nav-btn prev-month" id="prev-chart">◀</button>
+                            <p class="current-month-year">
+                                <span id="currentMonth"> Julio</span>
+                                <span id="currentYear"> 2025</span> 
+                            </p > 
+                            <button class="nav-btn next-month" id="next-chart" >▶</button>
+                        </div>
+                        
+                        <!-- Canvas para la gráfica -->
+                        <div class="chart-container">
+                            <canvas id="measurementChart" width="600" height="300"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección de estadísticas -->
+                    <div class="stats-section">
+                        <div class="stats-header">
+                            <h3>Estadísticas por mes</h3>
+                        </div>
+                        
+                        <div class="stats-content">
+                            <div class="stat-item">
+                                <span class="stat-label">Mediciones registradas:</span>
+                                <span class="stat-value" id="totalMeasurements">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Primer registro:</span>
+                                <span class="stat-value" id="firstMeasurement">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Último registro:</span>
+                                <span class="stat-value" id="lastMeasurement">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="informacion" class="tab-content">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-form">
+                        <div class="profile-row">
+                            <div class="profile-group">
+                                <label class="profile-label">Nombre</label>
+                                <input type="text" class="profile-input readonly" value="Carlos Rafael" readonly>
+                            </div>
+                            <div class="profile-group">
+                                <label class="profile-label">Apellidos</label>
+                                <input type="text" class="profile-input readonly" value="Ruiz Ruiz" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-row">
+                            <div class="profile-group">
+                                <label class="profile-label">Fecha de nacimiento</label>
+                                <input type="text" class="profile-input readonly" value="DD/MM/AAAA" readonly>
+                            </div>
+                            <div class="profile-group">
+                                <label class="profile-label">Sexo</label>
+                                <input type="text" class="profile-input readonly" value="Masculino" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-row">
+                            <div class="profile-group">
+                                <label class="profile-label">Correo electrónico</label>
+                                <input type="email" class="profile-input readonly" id="email-input" value="243703@ids.upchiapas.edu.mx" readonly>
+                            </div>
+                            <div class="profile-group">
+                                <label class="profile-label">Contraseña</label>
+                                <div class="password-field">
+                                    <input type="password" class="profile-input readonly" id="password-input" value="************" readonly>
+                                    <button type="button" class="toggle-password" id="toggle-password" onclick="togglePasswordVisibility()" title="Mostrar contraseña">👁️</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button type="button" class="btn-edit" id="edit-btn" >Editar perfil</button>
+                            <div class="edit-actions" id="edit-actions" style="display: none;">
+                                <button type="button" class="btn-cancel" onclick="cancelEdit()">Cancelar</button>
+                                <button type="button" class="btn-save-changes" onclick="saveChanges()">Guardar cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="historial" class="tab-content">
+            <div class="medical-history-container">
+                <div class="medical-history-card">
+                    <div class="medical-history-form">
+                        <div class="history-section">
+                            <label class="history-section-label">Padecimientos crónicos</label>
+                            <div class="history-items" id="chronic-conditions">
+                                <div class="history-item">
+                                    <input type="text" class="history-input readonly" value="Diabetes mellitus tipo 2" readonly>
+                                    <div class="history-item-actions" style="display: none;">
+                                        <button type="button" class="btn-add-item" onclick="addHistoryItem('chronic-conditions')">+</button>
+                                        <button type="button" class="btn-remove-item" onclick="removeHistoryItem(this)">🗑</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="history-section">
+                            <label class="history-section-label">Nombre del medicamento</label>
+                            <div class="history-items" id="medications">
+                                <div class="history-item">
+                                    <input type="text" class="history-input readonly" value="Insulina" readonly>
+                                    <div class="history-item-actions" style="display: none;">
+                                        <button type="button" class="btn-add-item" onclick="addHistoryItem('medications')">+</button>
+                                        <button type="button" class="btn-remove-item" onclick="removeHistoryItem(this)">🗑</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="history-section">
+                            <label class="history-section-label">Alergias a medicamentos</label>
+                            <div class="history-items" id="allergies">
+                                <div class="history-item">
+                                    <input type="text" class="history-input readonly" value="Ceftriaxona" readonly>
+                                    <div class="history-item-actions" style="display: none;">
+                                        <button type="button" class="btn-add-item" onclick="addHistoryItem('allergies')">+</button>
+                                        <button type="button" class="btn-remove-item" onclick="removeHistoryItem(this)">🗑</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="history-section">
+                            <div class="history-row">
+                                <div class="history-group">
+                                    <label class="history-section-label">Procedimientos quirúrgicos</label>
+                                    <div class="history-items" id="surgeries">
+                                        <div class="history-item">
+                                            <input type="text" class="history-input readonly" value="Apendicectomía" readonly>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="history-group">
+                                    <label class="history-section-label">Año</label>
+                                    <div class="history-items" id="surgery-years">
+                                        <div class="history-item">
+                                            <input type="text" class="history-input readonly" value="2021" readonly>
+                                            <div class="history-item-actions" style="display: none;">
+                                                <button type="button" class="btn-add-item" onclick="addSurgeryPair()">+</button>
+                                                <button type="button" class="btn-remove-item" onclick="removeSurgeryPair(this)">🗑</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="history-actions">
+                            <button type="button" class="btn-edit-history" id="edit-history-btn" onclick="toggleHistoryEditMode()">Editar historial</button>
+                            <div class="edit-history-actions" id="edit-history-actions" style="display: none;">
+                                <button type="button" class="btn-cancel" onclick="cancelHistoryEdit()">Cancelar</button>
+                                <button type="button" class="btn-save-changes" onclick="saveHistoryChanges()">Guardar cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para consultas médicas -->
+    <div id="newRecordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- ID agregado para cambiar título dinámicamente -->
+                <div class="modal-title" id="modal-title">Crear nuevo registro</div>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-nav">
+                <div class="modal-nav-item active" data-section="detalles">Detalles de la consulta</div>
+                <div class="modal-nav-item" data-section="medidas">Medidas corporales</div>
+                <div class="modal-nav-item" data-section="tratamiento">Tratamiento</div>
+            </div>
+            <div class="modal-body">
+                <!-- Sección 1: Detalles de la consulta -->
+                <div id="detalles" class="form-section active">
+                    <div id="alert-detalles" class="section-alert">
+                        <span class="alert-icon">⚠️</span>
+                        <span class="alert-message"></span>
+                        <button type="button" class="alert-close" onclick="hideAlert('detalles')">×</button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Diagnóstico</label>
+                            <input type="text" class="form-input" placeholder="Diagnóstico dado por el doctor">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha de la consulta</label>
+                            <input type="date" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Centro médico</label>
+                            <input type="text" class="form-input" placeholder="Centro médico donde fue atendido">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nombre del doctor</label>
+                            <input type="text" class="form-input" placeholder="Nombre completo del doctor">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 2: Medidas corporales -->
+                <div id="medidas" class="form-section">
+                    <div id="alert-medidas" class="section-alert">
+                        <span class="alert-icon">⚠️</span>
+                        <span class="alert-message"></span>
+                        <button type="button" class="alert-close" onclick="hideAlert('medidas')">×</button>
+                    </div>
+
+                    <div id="measurementsList">
+                        <div class="measurement-row">
+                            <div class="form-group">
+                                <label class="form-label">Medida corporal a registrar</label>
+                                <select class="form-input" placeholder="Ej: Peso, Altura, Presión arterial">
+                                    <option value="">Seleccione una medida</option>
+                                    <option value="peso">Peso (kg)</option>
+                                    <option value="altura">Altura (cm)</option>
+                                    <option value="presion">Presión arterial (mm Hg)</option>
+                                    <option value="temperatura">Temperatura (°C)</option>
+                                    <option value="glucosa">Glucosa (mg/dL)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Valor registrado</label>
+                                <input type="number" class="form-input no-negative" placeholder="Ej: 70 (kg), 175 (cm)" min="0" step="0.1">
+                            </div>
+                            <button type="button" class="delete-btn" onclick="removeMeasurement(this)">🗑</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addMeasurement()">
+                        <span>+</span>
+                        Añadir medida corporal
+                    </button>
+                </div>
+
+                <!-- Sección 3: Tratamiento -->
+                <div id="tratamiento" class="form-section">
+                    <div id="alert-tratamiento" class="section-alert">
+                        <span class="alert-icon">⚠️</span>
+                        <span class="alert-message"></span>
+                        <button type="button" class="alert-close" onclick="hideAlert('tratamiento')">×</button>
+                    </div>
+
+                    <div id="medicationsList">
+                        <div class="medication-row">
+                            <div class="medication-header">
+                                <div class="form-group">
+                                    <label class="form-label">Nombre del medicamento</label>
+                                    <input type="text" class="form-input" placeholder="Ej: Paracetamol">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Presentación del medicamento</label>
+                                    <input type="text" class="form-input" placeholder="Ej: Tabletas 500 mg">
+                                </div>
+                                <button type="button" class="delete-btn" onclick="removeMedication(this)">🗑</button>
+                            </div>
+                            <div class="medication-details">
+                                <div class="form-group">
+                                    <label class="form-label">Dosis</label>
+                                    <input type="text" class="form-input" placeholder="Ej: 1 tableta, 10 ml">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tiempo entre dosis</label>
+                                    <input type="number" class="form-input no-negative" placeholder="En horas" min="1" max="72" step="1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Duración</label>
+                                    <input type="number" class="form-input no-negative" placeholder="En días" min="1" max="365" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addMedication()">
+                        <span>+</span>
+                        Añadir prescripción
+                    </button>
+
+                    <div id="proceduresList" style="margin-top: 30px;">
+                        <div class="procedure-row">
+                            <div class="form-group">
+                                <label class="form-label">Procedimiento médico</label>
+                                <select class="form-input">
+                                    <option value="">Seleccione un procedimiento</option>
+                                    <option value="aplicacion-yesos">Aplicación/retiración de yesos</option>
+                                    <option value="vendaje">Vendaje de una herida/lesión</option>
+                                    <option value="curacion-heridas">Curación de heridas</option>
+                                    <option value="sutura">Sutura</option>
+                                    <option value="retiro-puntos">Retiro de puntos</option>
+                                    <option value="drenaje-abcesos">Drenaje de abcesos</option>
+                                    <option value="extraccion-cuerpos">Extracción de cuerpos extraños</option>
+                                    <option value="aplicacion-vacunas">Aplicación de vacunas</option>
+                                    <option value="inyeccion-intramuscular">Inyección intramuscular</option>
+                                    <option value="nebulizacion">Nebulización</option>
+                                    <option value="prueba-antigenos">Prueba de antígenos</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Notas</label>
+                                <input type="text" class="form-input" placeholder="Detalles importantes (opcional)">
+                            </div>
+                            <button type="button" class="delete-btn" onclick="removeProcedure(this)">🗑</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addProcedure()">
+                        <span>+</span>
+                        Añadir procedimiento médico
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="previousSection()">Anterior</button>
+                <button type="button" class="btn-primary" onclick="nextSection()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para nueva medición -->
+    <div id="newMeasurementModal" class="measurement-modal">
+        <div class="measurement-modal-content">
+            <div class="measurement-modal-header">
+                <!-- ID agregado para cambiar título dinámicamente -->
+                <div class="measurement-modal-title" id="measurement-modal-title">Nueva medición</div>
+                <span class="close" onclick="closeMeasurementModal()">&times;</span>
+            </div>
+            <div class="measurement-modal-body">
+                <div id="alert-measurement" class="section-alert">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-message"></span>
+                    <button type="button" class="alert-close" onclick="hideAlert('measurement')">×</button>
+                </div>
+
+                <!-- Nueva estructura en lista vertical -->
+                <div class="measurement-form-list">
+                    <div class="measurement-form-group">
+                        <label class="measurement-form-label">Medida corporal</label>
+                        <select class="measurement-form-select">
+                            <option value="">Seleccione una medida</option>
+                            <option value="peso">Peso</option>
+                            <option value="altura">Altura</option>
+                            <option value="presion">Presión arterial</option>
+                            <option value="temperatura">Temperatura</option>
+                            <option value="glucosa">Glucosa</option>
+                        </select>
+                    </div>
+                    
+                    <div class="measurement-form-group">
+                        <label class="measurement-form-label">Valor registrado</label>
+                        <input type="number" class="measurement-form-input" placeholder="Ej: 70 (kg), 175 (cm)">
+                    </div>
+                    
+                    <div class="measurement-form-group">
+                        <label class="measurement-form-label">Fecha</label>
+                        <input type="date" class="measurement-form-input">
+                    </div>
+                </div>
+            </div>
+            <div class="measurement-modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeMeasurementModal()">Cancelar</button>
+                <button type="button" class="btn-save" onclick="saveMeasurement()">Guardar medición</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="../scripts/validation.js"></script>
+    <script type="module" src="../scripts/historial-medico.js"></script>
+</body>
+</html>
